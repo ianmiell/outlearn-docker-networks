@@ -8,8 +8,8 @@
       "description" : "An overview of the 'docker network' command",
       "privacy" : "public",
       "pages" : [
-        {"page" : "./pages/welcome.md"},                                                                                                                                     
-        {"module" : "my-outlearn-module"},                                                                                                                                   
+        {"page" : "./pages/welcome.md"},
+        {"module" : "docker-network-module"},
         {"page" : "./pages/closing.md"}
       ]
     }

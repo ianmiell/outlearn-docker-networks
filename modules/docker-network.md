@@ -64,6 +64,7 @@ See [here](https://docs.docker.com/engine/installation/) for how to install the 
 # Docker Network
 
 
+TODO: overview of commands
 
 ```
   disconnect               Disconnect container from a network
@@ -74,17 +75,44 @@ See [here](https://docs.docker.com/engine/installation/) for how to install the 
   connect                  Connect container to a network
 ```
 
-		# Network creation
-		shutit.send('docker network create --subnet 192.168.1.0/4 mysmallsubnet',note='Create a network in the specified subnet called "mysmallsubnet"')
-		shutit.send('docker network ls',note='List networks now available')
-		shutit.send('docker run -d --name container1 debian sleep infinity',note='Start a container')
+TODO: ls, go over
+bridge
+none
+host
+
+TODO: create a network
+docker network create live
+docker network create test
+
+docker network ls
+docker network inspect test
+bridge
+
+TODO: create a container
+shutit.send('docker run -d --name container1 debian sleep infinity',note='Start a container')
+go into it (test)
+		shutit.login(command='docker exec -ti container1 bash',note='Observe that mysmallsubnet is now connected to this container, and it has been allocated an IP address in the subnet we specified.')
+TODO: install some tools
+		shutit.send('apt-get update && apt-get install net-tools')
+		
 		shutit.send('docker inspect container1',note='''Inspect this container's network section. Observe it has only one IP address''')
+
+		shutit.send('ifconfig',note='Observer that this container now has another eth interface with the relevant address')
+
+TODO: connect it to test network
 		shutit.send('docker network connect mysmallsubnet container1',note='Connect the container just-created ')
 		shutit.send('docker inspect container1',note='See how mysmallsubnet is now connected to this container, and it has been allocated an IP address in the subnet we specified.')
-		shutit.login(command='docker exec -ti container1 bash',note='Observe that mysmallsubnet is now connected to this container, and it has been allocated an IP address in the subnet we specified.')
-		shutit.send('apt-get update && apt-get install net-tools')
-		shutit.send('ifconfig',note='Observer that this container now has another eth interface with the relevant address')
-		shutit.logout()
+
+TODO: some pings
+
+TODO: disconnect
+		shutit.send('docker network disconnect mysmallsubnet container1',note='Connect the container just-created ')
+		shutit.send('docker inspect container1',note='See how mysmallsubnet is now connected to this container, and it has been allocated an IP address in the subnet we specified.')
+
+TODO: connect to live
+
+
+
 
 <!-- @end -->
 
