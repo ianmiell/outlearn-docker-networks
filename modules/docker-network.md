@@ -1,11 +1,11 @@
 <!--
 {
-"name": "docker-compose-setup",
+"name": "docker-networks",
 "version" : "0.1",
-"title" : "Docker Compose Setup",
-"description" : "Get setup with Docker Compose",
-"homepage" : "https://github.com/ianmiell/outlearn-modules",
-"freshnessDate" : 2016-02-28,
+"title" : "Docker Networks",
+"description" : "Get acqainted with Docker networks",
+"homepage" : "https://github.com/ianmiell/outlearn-docker-networks",
+"freshnessDate" : 2016-03-28,
 "license" : "CC BY 4.0"
 }
 -->
