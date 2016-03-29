@@ -9,7 +9,7 @@
       "privacy" : "public",
       "pages" : [
         {"page" : "./pages/welcome.md"},
-        {"module" : "docker-network-module"},
+        {"module" : "./modules/docker-network.md"},
         {"page" : "./pages/closing.md"}
       ]
     }
