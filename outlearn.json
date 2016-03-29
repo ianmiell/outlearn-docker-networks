@@ -1,0 +1,20 @@
+{
+  "olpVersion" : "0.5",
+
+  "paths" : [
+    {
+      "name" : "docker-networks",
+      "title" : "Docker Networks Introduction",
+      "description" : "An overview of the 'docker network' command",
+      "privacy" : "public",
+      "pages" : [
+        {"page" : "./pages/welcome.md"},                                                                                                                                     
+        {"module" : "my-outlearn-module"},                                                                                                                                   
+        {"page" : "./pages/closing.md"}
+      ]
+    }
+  ],
+  "modules" : [
+    {"olm" : "./modules/docker-network.md"}
+  ]
+}
