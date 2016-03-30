@@ -63,10 +63,22 @@ See [here](https://docs.docker.com/engine/installation/) for how to install the 
 
 # Docker Network
 
-
-TODO: overview of commands
+If you type 
 
 ```
+docker network
+```
+
+you will see the following output (or similar):
+
+```
+docker: "network" requires a minimum of 1 argument.
+See '/usr/bin/docker network --help'.
+
+Usage:	docker network [OPTIONS] COMMAND [OPTIONS]
+
+Commands:
+  connect                  Connect container to a network
   disconnect               Disconnect container from a network
   inspect                  Display detailed network information
   ls                       List all networks
@@ -75,10 +87,35 @@ TODO: overview of commands
   connect                  Connect container to a network
 ```
 
-TODO: ls, go over
-bridge
-none
-host
+The commands listed are all the actions that can be performed on networks managed by Docker. Yes, you can create, inspect and rm (remove) networks just like you can with containers!
+
+## List Networks
+
+First, list the networks that already exist by running:
+
+```
+docker network ls
+```
+
+and you should see three entries:
+
+```
+NETWORK ID          NAME                DRIVER
+4fefe37175f7        bridge              bridge              
+dd3db2224b56        none                null                
+d42661b5938d        host                host         
+```
+
+Each line corresponds to a network. The ID is arbitrary, so that you can reference it.
+
+The name is a reference name for the network, and the driver indicates the type of network as Docker sees it.
+
+The 'bridge' driver (and default 'bridge' network) are the default networks you are used to from . It's called a 'bridge' because it connects a virtual ethernet interface to the default ethernet interface on your host machine, allowing you to connect from your container to the wider internet.
+
+The 'none' driver simply means 'no network', and the 'host' driver means 'use the network of the host machine directly'.
+
+
+## Create a Network
 
 TODO: create a network
 docker network create live
@@ -110,8 +147,6 @@ TODO: disconnect
 		shutit.send('docker inspect container1',note='See how mysmallsubnet is now connected to this container, and it has been allocated an IP address in the subnet we specified.')
 
 TODO: connect to live
-
-
 
 
 <!-- @end -->
