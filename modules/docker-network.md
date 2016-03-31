@@ -245,10 +245,14 @@ Each has been given its own subnet (172.18.0.0/16 and 172.19.0.0/16).
 
 ## Add a container to the test network
 
+Now you have created these (sub)networks, you can . Just as you can create a container attached to 'net=host', or 'net=none', you can attach one to your newly-created test network. Here you run a busybox container that does nothing but sleep an hour.
+
 ```
-$ docker run --name app1 -d --net=test busybox sleep 999
+$ docker run --name app1 -d --net=test busybox sleep 3600
 c26f6a548c6d5754059f1c7654f77b63e239d3c58803805431b11c9bafbe4b05
 ```
+
+If you run the 'ip addr' command you can see that the container has a network interface available on the 172.19.0.0/16 subnet...
 
 ```
 $ docker exec app1 ip addr
@@ -265,6 +269,8 @@ $ docker exec app1 ip addr
     inet6 fe80::42:acff:fe13:5/64 scope link 
        valid_lft forever preferred_lft forever
 ```
+
+...and that this corresponds to the output of docker inspect for that container. NetworkSettings.Networks.test.IPAddress is the same as the above interface (172.19.0.5).
 
 ```
 $ docker inspect app1
@@ -285,6 +291,9 @@ $ docker inspect app1
         }
 ```
 
+If you test your access to the gateway using ping, we have access:
+
+
 ```
 $ docker exec app1 ping -c 1 172.19.0.1
 PING 172.19.0.1 (172.19.0.1): 56 data bytes
@@ -295,18 +304,30 @@ PING 172.19.0.1 (172.19.0.1): 56 data bytes
 round-trip min/avg/max = 0.430/0.430/0.430 ms
 ```
 
+## Disconnect running container from the 'test' network
+
 ```
 $ docker network disconnect test app1
+```
+
+If we re-run the previous ping command, the network is reported as unreachable:
+
+```
 $ docker exec app1 ping -c 1 172.19.0.1
 PING 172.19.0.1 (172.19.0.1): 56 data bytes
 ping: sendto: Network is unreachable
 ```
 
+## Connect running container to the 'live' network
+
+Now that we've tested our container we are happy to move it to the 'live' network. We do this by running the 'docker network connect' command:
 
 ```
 $ docker network connect live app1 
 $
 ```
+
+We have been given a new IP address (172.18.0.2). Again, the address and IDs will differ for you:
 
 ```
 $ docker inspect app1
@@ -326,6 +347,8 @@ $ docker inspect app1
             }
         }
 ```
+
+And we can ping the outside world again:
 
 ```
 $ docker exec app1 ping google.com
